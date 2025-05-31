@@ -1,256 +1,28 @@
-/* Ensure the body and html take full height */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Main content to push navbar up if needed */
-main {
-  flex: 1 0 auto;
-}
-
-/* Styling for the bottom navbar - smaller size */
+/* Navbar Styles */
 .custom-navbar.fixed-bottom {
-  background-color: rgba(248, 249, 250, 0.95);
-  border-top: 1px solid #dee2e6;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.12);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  padding: 0.4rem 0; /* Reduced padding for smaller navbar */
-  border-radius: 16px 16px 0 0; /* Rounded top corners */
-  height: 60px; /* Reduced height */
-  backdrop-filter: blur(5px); /* Slight blur effect */
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Navbar links styled horizontally */
-.nav-list {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.nav-item {
-  flex: 1;
-  text-align: center;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Styling for individual nav-links */
 .nav-link {
-  color: #6c757d;
-  font-size: 0.85rem; /* Smaller font size */
-  text-decoration: none;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.4rem;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
+  color: var(--text-secondary);
 }
 
-/* Icon styles with glow effect on hover */
-.nav-link i {
-  font-size: 1.3rem; /* Smaller icon size */
-  margin-bottom: 0.2rem;
-  transition: all 0.3s ease;
-}
-
-.nav-link:hover i {
-  color: #0d6efd;
-  filter: drop-shadow(0 0 3px rgba(13, 110, 253, 0.7)); /* Glow effect */
-  transform: translateY(-2px);
-}
-
-.nav-text {
-  display: block;
-  font-size: 0.7rem; /* Smaller text */
-  transition: all 0.3s ease;
-  opacity: 0.9;
-}
-
-.nav-link:hover .nav-text {
-  opacity: 1;
-  transform: translateY(1px);
-}
-
-/* Active link styling with gradient and glow */
 .nav-link.active {
-  color: #0d6efd;
-  font-weight: bold;
+  color: var(--primary);
 }
 
-.nav-link.active i {
-  color: #0d6efd;
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.9));
-  transform: translateY(-2px); /* Maintain the hover animation on active state */
+.nav-link:hover {
+  color: var(--accent);
 }
 
-.nav-link.active:hover i {
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1.0)); /* Enhanced glow on active + hover */
+.btn.login-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.nav-link.active .nav-text {
-  opacity: 1;
-  transform: translateY(1px);
-}
-
-/* Active indicator with animated gradient */
-.nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 3px;
-  background: linear-gradient(90deg, #0d6efd, #ffffff, #0d6efd);
-  background-size: 200% 100%;
-  border-radius: 3px 3px 0 0;
-  box-shadow: 0 0 8px rgba(13, 110, 253, 0.7);
-  animation: gradientMove 2s ease infinite;
-}
-
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Desktop Buttons with updated styling */
-.desktop-buttons {
-  display: flex;
-  gap: 0.4rem;
-  justify-content: center;
-}
-
-.btn {
-  color: white;
-  border: none;
-  padding: 0.25rem 0.6rem;
-  border-radius: 20px; /* More rounded buttons */
-  cursor: pointer;
-  font-size: 0.75rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.btn:active {
-  transform: translateY(1px);
-}
-
-.login-btn {
-  background: linear-gradient(45deg, #5c636a, #6c757d);
-}
-
-.login-btn:hover {
-  background: linear-gradient(45deg, #5c636a, #7d8590);
-}
-
-.join-btn {
-  background: linear-gradient(45deg, #0d6efd, #0a58ca);
-}
-
-.join-btn:hover {
-  background: linear-gradient(45deg, #0d6efd, #0b5ed7);
-}
-
-/* Mobile Menu Toggle */
-.mobile-menu-toggle {
-  display: none; /* Hidden on desktop */
-}
-
-.mobile-menu-toggle .nav-link i {
-  font-size: 1.4rem;
-}
-
-/* Mobile Menu Dropdown */
-.mobile-menu {
-  position: absolute;
-  bottom: 100%; /* Above the navbar */
-  right: 0;
-  background-color: rgba(248, 249, 250, 0.95);
-  border: 1px solid #dee2e6;
-  border-radius: 12px;
-  padding: 0.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(5px);
-  margin-bottom: 5px;
-  min-width: 120px;
-}
-
-.mobile-login-btn {
-  background: linear-gradient(45deg, #5c636a, #6c757d);
-  width: 100%;
-}
-
-.mobile-join-btn {
-  background: linear-gradient(45deg, #0d6efd, #0a58ca);
-  width: 100%;
-}
-
-/* Mobile Responsive (e.g., screens < 768px) */
-@media (max-width: 767px) {
-  .custom-navbar.fixed-bottom {
-    height: 50px; /* Even smaller on mobile */
-    padding: 0.2rem 0;
-  }
-  
-  .nav-link i {
-    font-size: 1.2rem; /* Small icon size on mobile */
-  }
-  
-  .nav-text {
-    display: none; /* Hide text on mobile */
-  }
-  
-  .desktop-buttons {
-    display: none; /* Hide desktop buttons on mobile */
-  }
-  
-  .mobile-menu-toggle {
-    display: flex; /* Show mobile menu toggle on mobile */
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .nav-link.active::after {
-    width: 40%; /* Smaller active indicator on mobile */
-  }
+.btn.join-btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
 }
