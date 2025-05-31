@@ -1,0 +1,439 @@
+/* ContactForm.css - Enhanced with gradients and scroll animations */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Enhanced with parallax background and scroll animation */
+body {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* Animated gradient background that shifts on scroll */
+.contact-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0.1;
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.contact-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Background gradient changes slightly when scrolling */
+.scroll-active .contact-container::before {
+  opacity: 0.2;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.blue-section {
+  background: linear-gradient(135deg, #0A40FF 0%, #0066FF 100%);
+  position: relative;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  overflow: hidden;
+}
+
+/* Animated gradient shapes in the background */
+.blue-section::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, 
+                transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, 
+                transparent 75%, transparent);
+  background-size: 100px 100px;
+  animation: backgroundScroll 60s linear infinite;
+  z-index: 0;
+}
+
+@keyframes backgroundScroll {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50px, -50px) rotate(360deg);
+  }
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.visible .title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.content-wrappers {
+  display: flex;
+  margin-top: -50px;
+  padding: 0 5%;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.text-section {
+  flex: 1;
+  min-width: 300px;
+  background: linear-gradient(145deg, #000000 0%, #161616 100%);
+  color: white;
+  padding: 40px;
+  border-radius: 15px 0 0 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Subtle gradient overlay animation */
+.text-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, rgba(10, 64, 255, 0.1) 0%, rgba(0, 102, 255, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.text-section:hover::before {
+  opacity: 1;
+}
+
+.form-section {
+  flex: 1;
+  min-width: 300px;
+  background: linear-gradient(145deg, #ffffff 0%, #f5f5f5 100%);
+  padding: 30px;
+  border-radius: 0 15px 15px 0;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+  line-height: 1.2;
+}
+
+.highlight {
+  background: linear-gradient(90deg, #0A40FF, #0066FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  display: inline-block;
+  position: relative;
+  animation: colorShift 5s infinite alternate;
+}
+
+@keyframes colorShift {
+  0% {
+    filter: hue-rotate(0deg);
+    background: linear-gradient(90deg, #0A40FF, #0066FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  50% {
+    filter: hue-rotate(15deg);
+    background: linear-gradient(90deg, #4776E6, #8E54E9);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  100% {
+    filter: hue-rotate(30deg);
+    background: linear-gradient(90deg, #0066FF, #2E44FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+.contact-info {
+  margin-top: auto;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  opacity: 0.8;
+  transition: all 0.3s;
+}
+
+.info-item:hover {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(10, 64, 255, 0.2) 0%, rgba(0, 102, 255, 0.2) 100%);
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.info-item:hover .icon {
+  background: linear-gradient(135deg, rgba(10, 64, 255, 0.8) 0%, rgba(0, 102, 255, 0.8) 100%);
+}
+
+.social-links {
+  display: flex;
+  margin-top: 30px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.social-icon:hover {
+  transform: translateY(-5px) scale(1.1);
+  background: linear-gradient(135deg, #0A40FF 0%, #0066FF 100%);
+  box-shadow: 0 5px 15px rgba(10, 64, 255, 0.4);
+}
+
+/* Enhanced Form Styles with gradients */
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.form-group:focus-within label {
+  color: #0A40FF;
+  font-weight: 500;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s;
+  background: linear-gradient(145deg, #ffffff 0%, #f9f9f9 100%);
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #0A40FF;
+  box-shadow: 0 0 0 3px rgba(10, 64, 255, 0.15);
+  background: #ffffff;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submit-btn {
+  background: linear-gradient(90deg, #0A40FF, #0066FF);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(10, 64, 255, 0.3);
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.7s;
+}
+
+.submit-btn.hovered::before {
+  left: 100%;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #0066FF, #0A40FF);
+  box-shadow: 0 6px 18px rgba(10, 64, 255, 0.4);
+}
+
+/* Enhanced scroll animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.animate-on-scroll.from-left {
+  transform: translateX(-50px);
+}
+
+.animate-on-scroll.from-right {
+  transform: translateX(50px);
+}
+
+.animate-on-scroll.scale {
+  transform: scale(0.9);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* Staggered animation for list items */
+.info-item {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.visible .info-item:nth-child(1) {
+  animation: fadeInRight 0.5s forwards 0.2s;
+}
+
+.visible .info-item:nth-child(2) {
+  animation: fadeInRight 0.5s forwards 0.4s;
+}
+
+.visible .info-item:nth-child(3) {
+  animation: fadeInRight 0.5s forwards 0.6s;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 0.8;
+    transform: translateX(0);
+  }
+}
+
+/* Scroll-triggered background color shift */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0A40FF, #0066FF);
+  width: 0%;
+  z-index: 100;
+  transition: width 0.1s;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+  
+  .text-section {
+    border-radius: 15px 15px 0 0;
+    min-height: 300px;
+  }
+  
+  .form-section {
+    border-radius: 0 0 15px 15px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blue-section {
+    height: 150px;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .text-section, .form-section {
+    padding: 25px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+}

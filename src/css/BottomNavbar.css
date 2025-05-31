@@ -1,0 +1,44 @@
+/* Bottom Navbar Styles */
+.bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 100;
+  }
+  
+  .nav-item1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: #666;
+    font-size: 12px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .nav-item1 svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .nav-item1.active {
+    color: #4a55e5;
+  }
+  
+  .nav-item1:hover {
+    color: #3a43c8;
+  }
+  
+  @media (min-width: 769px) {
+    .bottom-navbar {
+      display: none;
+    }
+  }
+  
