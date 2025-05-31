@@ -1,187 +1,71 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../css/Home.css';
 
 export default function HomePage() {
-  // Refs for scroll animations
-  const heroRef = useRef(null);
-  const statsRef = useRef(null);
-  const liveClassRef = useRef(null);
-  const discoverRef = useRef(null);
-  const learnersWorkRef = useRef(null);
-  const hackerRef = useRef(null);
-  const upcomingRef = useRef(null);
-  const ourWorksRef = useRef(null);
-  const tutorsRef = useRef(null);
-  const accreditedRef = useRef(null);
-  const whyLearnRef = useRef(null);
-  
-  // Mouse position for interactive gradients
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  
-  // Handle mouse move for gradient effect
-  const handleMouseMove = (e) => {
-    setMousePosition({
-      x: e.clientX,
-      y: e.clientY
-    });
-  };
-  
+  const scrollProgress = useRef(null);
+
   useEffect(() => {
-    // Add mousemove event listener
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    // Set up intersection observer for scroll animations
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
-    // Elements to observe
-    const sections = [
-      heroRef.current,
-      statsRef.current,
-      liveClassRef.current, 
-      discoverRef.current,
-      learnersWorkRef.current,
-      hackerRef.current,
-      upcomingRef.current,
-      ourWorksRef.current,
-      tutorsRef.current,
-      accreditedRef.current,
-      whyLearnRef.current
-    ];
-    
-    sections.forEach(section => {
-      if (section) observer.observe(section);
-    });
-    
-    // Animate stats with counters
-    const animateStats = () => {
-      const statNumbers = document.querySelectorAll('.stat-number');
-      statNumbers.forEach(stat => {
-        const target = parseFloat(stat.textContent);
-        const duration = 2000;
-        const startTime = performance.now();
-        
-        const updateNumber = (currentTime) => {
-          const elapsedTime = currentTime - startTime;
-          const progress = Math.min(elapsedTime / duration, 1);
-          
-          if (stat.textContent.includes('LPA')) {
-            stat.textContent = Math.floor(progress * target) + ' LPA';
-          } else if (stat.textContent.includes('+')) {
-            stat.textContent = Math.floor(progress * target) + '+';
-          } else if (!isNaN(target)) {
-            stat.textContent = (progress * target).toFixed(1);
-          }
-          
-          if (progress < 1) {
-            requestAnimationFrame(updateNumber);
-          }
-        };
-        
-        requestAnimationFrame(updateNumber);
-      });
+    const updateScrollProgress = () => {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (scrollProgress.current) {
+        scrollProgress.current.style.transform = `scaleX(${scrolled / 100})`;
+      }
     };
-    
-    // Setup stats animation when visible
-    const statsObserver = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          animateStats();
-          statsObserver.disconnect();
-        }
-      },
-      { threshold: 0.5 }
-    );
-    
-    if (statsRef.current) {
-      statsObserver.observe(statsRef.current);
-    }
-    
-    // Cleanup
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      observer.disconnect();
-      statsObserver.disconnect();
-    };
+
+    window.addEventListener('scroll', updateScrollProgress);
+    return () => window.removeEventListener('scroll', updateScrollProgress);
   }, []);
-  
+
   return (
-    <div className="home-page">
-      {/* Hero Section */}
-      <section className="hero-section scroll-section" ref={heroRef}
-        style={{
-          backgroundImage: `radial-gradient(circle at ${mousePosition.x/20}% ${mousePosition.y/20}%, #1a3e78, #0a2351)`
-        }}>
-        <div className="container">
-          <div className="flex-row">
-            <div className="hero-content fade-in">
-              <h1 className="hero-title">
-                Unlock Knowledge Within
-                <span className="accent-text gradient-text"> 4Ducate</span> Your Potential Today!
-              </h1>
-              <p className="hero-subtitle">
-                Join our innovative learning platform to gain practical experience
-                to solve real-world problems and stay ready for 2 years+
-              </p>
-              <button className="explore-button pulse-btn">
-                Explore our Courses
-                <span className="arrow">→</span>
-              </button>
-            </div>
-            <div className="hero-image float-animation">
-              <img 
-                src="/api/placeholder/400/400" 
-                alt="Student with tablet" 
-                className="image"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="wave-divider">
-          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="shape-fill"></path>
-          </svg>
+    <>
+      <div ref={scrollProgress} className="scroll-progress"></div>
+      
+      <section className="hero-section">
+        <div className="hero-content">
+          <h1 className="hero-title">
+            Unlock Knowledge Within
+            <br />
+            4Ducate Your Potential Today!
+          </h1>
+          <p className="hero-subtitle">
+            Join our innovative learning platform to gain practical experience
+            and solve real-world problems with confidence
+          </p>
+          <button className="explore-button">
+            Explore our Courses
+            <span className="arrow">→</span>
+          </button>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="stats-section scroll-section" ref={statsRef}>
-        <div className="container">
-          <div className="stats-container">
-            <div className="stat-item slide-in">
-              <h2 className="stat-number">4.1</h2>
-              <p className="stat-title">Google Ratings</p>
-            </div>
-            <div className="stat-item slide-in" style={{ animationDelay: '0.2s' }}>
-              <h2 className="stat-number">12 LPA</h2>
-              <p className="stat-title">Highest Package</p>
-            </div>
-            <div className="stat-item slide-in" style={{ animationDelay: '0.4s' }}>
-              <h2 className="stat-number">100+</h2>
-              <p className="stat-title">Student Trained</p>
-            </div>
+      <section className="stats-section">
+        <div className="stats-container">
+          <div className="stat-item">
+            <h2 className="stat-number">4.1</h2>
+            <p className="stat-title">Google Ratings</p>
+          </div>
+          <div className="stat-item">
+            <h2 className="stat-number">12 LPA</h2>
+            <p className="stat-title">Highest Package</p>
+          </div>
+          <div className="stat-item">
+            <h2 className="stat-number">100+</h2>
+            <p className="stat-title">Students Trained</p>
           </div>
         </div>
       </section>
 
-      {/* Live Class Section */}
-      <section className="live-class-section scroll-section" ref={liveClassRef}>
+      <section className="live-class-section">
         <div className="container">
-          <div className="live-class-header fade-in">
+          <div className="live-class-header">
             <div className="live-indicator pulse"></div>
             <h2 className="live-title">LIVE CLASS</h2>
           </div>
-          <p className="live-subtitle fade-in" style={{ animationDelay: '0.2s' }}>Learning Unleashed, Live and Thriving !</p>
+          <p className="live-subtitle">Learning Unleashed, Live and Thriving !</p>
           
-          <div className="live-class-card slide-up">
+          <div className="live-class-card">
             <div className="class-image gradient-bg">
               <img src="/api/placeholder/150/150" alt="Class icons" />
             </div>
@@ -202,45 +86,43 @@ export default function HomePage() {
         <div className="diagonal-divider"></div>
       </section>
 
-      {/* Discover Programs Section */}
-      <section className="discover-section scroll-section" ref={discoverRef}>
+      <section className="discover-section">
         <div className="container">
-          <h2 className="discover-title fade-in">
+          <h2 className="discover-title">
             Discover programs to explore and align with your career interests.
           </h2>
-          <p className="discover-subtitle fade-in" style={{ animationDelay: '0.2s' }}>
+          <p className="discover-subtitle">
             Explore the in-demand skills for the fields of content, marketing and technology.
           </p>
           
           <div className="programs-container">
-            <div className="program-card slide-in">
+            <div className="program-card">
               <h3 className="program-type">LIVE CLASSES</h3>
               <p className="program-description">
                 Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
               </p>
             </div>
-            <div className="program-image slide-in" style={{ animationDelay: '0.3s' }}>
+            <div className="program-image">
               <img src="/api/placeholder/300/200" alt="Student learning" className="floating" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Our Learners Work At Section */}
-      <section className="learners-work-section scroll-section" ref={learnersWorkRef}>
+      <section className="learners-work-section">
         <div className="container">
-          <h2 className="section-title fade-in">Our Learners Work At</h2>
-          <div className="brand-logos-container fade-in">
-            <div className="brand-logo pop-in">
+          <h2 className="section-title">Our Learners Work At</h2>
+          <div className="brand-logos-container">
+            <div className="brand-logo">
               <img src="/api/placeholder/100/50" alt="Brand logo" />
             </div>
-            <div className="brand-logo pop-in" style={{ animationDelay: '0.1s' }}>
+            <div className="brand-logo">
               <img src="/api/placeholder/100/50" alt="Brand logo" />
             </div>
-            <div className="brand-logo pop-in" style={{ animationDelay: '0.2s' }}>
+            <div className="brand-logo">
               <img src="/api/placeholder/100/50" alt="Brand logo" />
             </div>
-            <div className="brand-logo pop-in" style={{ animationDelay: '0.3s' }}>
+            <div className="brand-logo">
               <img src="/api/placeholder/100/50" alt="Brand logo" />
             </div>
           </div>
@@ -248,15 +130,14 @@ export default function HomePage() {
         <div className="diagonal-divider light-to-dark"></div>
       </section>
 
-      {/* Ethical Hacker Section */}
-      <section className="ethical-hacker-section scroll-section" ref={hackerRef}>
+      <section className="ethical-hacker-section">
         <div className="container">
           <div className="hacker-flex-container">
-            <div className="hacker-image slide-in">
+            <div className="hacker-image">
               <div className="featured-tag">FEATURED</div>
               <img src="/api/placeholder/400/300" alt="Ethical hacker" className="hacker-img" />
             </div>
-            <div className="hacker-content slide-in" style={{ animationDelay: '0.3s' }}>
+            <div className="hacker-content">
               <h2 className="hacker-title">How To Become Ethical Hacker</h2>
               <p className="hacker-description">
                 Learn ethical hacking with step-by-step guidance from industry experts. Master cybersecurity skills that are in high demand and protect organizations from digital threats.
@@ -267,28 +148,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Upcoming Features Section */}
-      <section className="upcoming-features-section scroll-section" ref={upcomingRef}>
+      <section className="upcoming-features-section">
         <div className="container">
-          <h2 className="section-title fade-in">Upcoming Features</h2>
-          <p className="features-subtitle fade-in" style={{ animationDelay: '0.2s' }}>
+          <h2 className="section-title">Upcoming Features</h2>
+          <p className="features-subtitle">
             The features in development for enhanced learning and will be out in the coming days.
           </p>
           
           <div className="features-grid">
-            <div className="feature-box slide-up" style={{ animationDelay: '0.1s' }}>
+            <div className="feature-box">
               <h3>New Courses</h3>
               <p>Explore new courses with industry experts, covering the latest technologies and business trends.</p>
             </div>
-            <div className="feature-box slide-up" style={{ animationDelay: '0.2s' }}>
+            <div className="feature-box">
               <h3>Projects</h3>
               <p>Real-world projects guided by industry professionals to build your portfolio and expertise.</p>
             </div>
-            <div className="feature-box slide-up" style={{ animationDelay: '0.3s' }}>
+            <div className="feature-box">
               <h3>Learning Path</h3>
               <p>Structured learning paths customized for different career goals and skill development needs.</p>
             </div>
-            <div className="feature-box slide-up" style={{ animationDelay: '0.4s' }}>
+            <div className="feature-box">
               <h3>Mentorship</h3>
               <p>One-on-one mentorship sessions with industry experts to guide your learning journey.</p>
             </div>
@@ -296,13 +176,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Our Works Section */}
-      <section className="our-works-section scroll-section" ref={ourWorksRef}>
+      <section className="our-works-section">
         <div className="container">
-          <h2 className="section-title fade-in">Our Works</h2>
+          <h2 className="section-title">Our Works</h2>
           
           <div className="works-grid">
-            <div className="work-card scale-in" style={{ animationDelay: '0.1s' }}>
+            <div className="work-card">
               <div className="work-image">
                 <img src="/api/placeholder/300/200" alt="Project" />
               </div>
@@ -312,7 +191,7 @@ export default function HomePage() {
                 <button className="view-btn">View</button>
               </div>
             </div>
-            <div className="work-card scale-in" style={{ animationDelay: '0.2s' }}>
+            <div className="work-card">
               <div className="work-image">
                 <img src="/api/placeholder/300/200" alt="Project" />
               </div>
@@ -322,7 +201,7 @@ export default function HomePage() {
                 <button className="view-btn">View</button>
               </div>
             </div>
-            <div className="work-card scale-in" style={{ animationDelay: '0.3s' }}>
+            <div className="work-card">
               <div className="work-image">
                 <img src="/api/placeholder/300/200" alt="Project" />
               </div>
@@ -336,13 +215,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Our Tutors Section */}
-      <section className="tutors-section scroll-section" ref={tutorsRef}>
+      <section className="tutors-section">
         <div className="container">
-          <h2 className="section-title fade-in">Our Tutors</h2>
+          <h2 className="section-title">Our Tutors</h2>
           
           <div className="tutors-grid">
-            <div className="tutor-card pop-in" style={{ animationDelay: '0.1s' }}>
+            <div className="tutor-card">
               <div className="tutor-image">
                 <img src="/api/placeholder/150/150" alt="Tutor" />
               </div>
@@ -352,7 +230,7 @@ export default function HomePage() {
                 <span>★★★★★</span>
               </div>
             </div>
-            <div className="tutor-card pop-in" style={{ animationDelay: '0.2s' }}>
+            <div className="tutor-card">
               <div className="tutor-image">
                 <img src="/api/placeholder/150/150" alt="Tutor" />
               </div>
@@ -362,7 +240,7 @@ export default function HomePage() {
                 <span>★★★★★</span>
               </div>
             </div>
-            <div className="tutor-card pop-in" style={{ animationDelay: '0.3s' }}>
+            <div className="tutor-card">
               <div className="tutor-image">
                 <img src="/api/placeholder/150/150" alt="Tutor" />
               </div>
@@ -372,7 +250,7 @@ export default function HomePage() {
                 <span>★★★★★</span>
               </div>
             </div>
-            <div className="tutor-card pop-in" style={{ animationDelay: '0.4s' }}>
+            <div className="tutor-card">
               <div className="tutor-image">
                 <img src="/api/placeholder/150/150" alt="Tutor" />
               </div>
@@ -386,23 +264,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Accreditation Section */}
-      <section className="white-section scroll-section" ref={accreditedRef}>
+      <section className="white-section">
         <div className="container">
-          <h2 className="section-title fade-in">We Are Accredited By</h2>
+          <h2 className="section-title">We Are Accredited By</h2>
           <div className="accredited-logos">
-            <div className="logo pop-in">
+            <div className="logo">
               <div className="startup-india">#startupindia</div>
             </div>
-            <div className="logo pop-in" style={{ animationDelay: '0.2s' }}>
+            <div className="logo">
               <div className="startup-tn">StartupTN</div>
             </div>
-            <div className="logo pop-in" style={{ animationDelay: '0.4s' }}>
+            <div className="logo">
               <div className="circle-logo">
                 <div className="inner-circle"></div>
               </div>
             </div>
-            <div className="logo pop-in" style={{ animationDelay: '0.6s' }}>
+            <div className="logo">
               <div className="msme-logo">
                 MSME
               </div>
@@ -411,27 +288,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Learn With Us Section */}
-      <section className="why-learn-section scroll-section" ref={whyLearnRef}
-        style={{
-          backgroundImage: `linear-gradient(135deg, #0a2351 0%, #1a439e ${50 + mousePosition.x/50}%, #0a2351 100%)`
-        }}>
+      <section className="why-learn-section">
         <div className="container">
-          <h2 className="section-title fade-in">Why Learn with 4Ducate</h2>
+          <h2 className="section-title">Why Learn with 4Ducate</h2>
           
           <div className="completion-grid">
             {[
-              { icons: "✓", label: "Completion Rate", rate: "100%", delay: 0 },
-              { icons: "💼", label: "Job Placement", rate: "95%", delay: 0.1 },
-              { icons: "🖥️", label: "Online Support", rate: "24/7", delay: 0.2 },
-              { icons: "🏆", label: "Certification", rate: "100%", delay: 0.3 },
-              { icons: "👥", label: "Mentorship", rate: "1:1", delay: 0.4 },
-              { icons: "💬", label: "Communication", rate: "100%", delay: 0.5 },
-              { icons: "📚", label: "Content Quality", rate: "A+", delay: 0.6 },
-              { icons: "🎓", label: "Graduation Rate", rate: "98%", delay: 0.7 },
-              { icons: "💭", label: "Student Satisfaction", rate: "4.8/5", delay: 0.8 }
+              { icons: "✓", label: "Completion Rate", rate: "100%" },
+              { icons: "💼", label: "Job Placement", rate: "95%" },
+              { icons: "🖥️", label: "Online Support", rate: "24/7" },
+              { icons: "🏆", label: "Certification", rate: "100%" },
+              { icons: "👥", label: "Mentorship", rate: "1:1" },
+              { icons: "💬", label: "Communication", rate: "100%" },
+              { icons: "📚", label: "Content Quality", rate: "A+" },
+              { icons: "🎓", label: "Graduation Rate", rate: "98%" },
+              { icons: "💭", label: "Student Satisfaction", rate: "4.8/5" }
             ].map((item, index) => (
-              <div className="completion-box scale-in" style={{ animationDelay: `${item.delay}s` }} key={index}>
+              <div className="completion-box" key={index}>
                 <div className="icons">{item.icons}</div>
                 <p className="completion-label">{item.label}</p>
                 <p className="completion-rate">{item.rate}</p>
@@ -440,6 +313,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }
