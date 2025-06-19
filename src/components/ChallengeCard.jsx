@@ -65,8 +65,9 @@ const Challenges = () => {
   return (
     <div className="challenges-container">
       <div className="header">
+        <h2>Challenges</h2>
         <div className="search-bar">
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Search challenges..." />
           <button className="search-btn">
             <i className="bi bi-search"></i>
           </button>

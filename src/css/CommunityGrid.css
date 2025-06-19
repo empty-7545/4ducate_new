@@ -1,144 +1,213 @@
-/* CommunityGrid.css */
+/* Community Container with Glassmorphism */
 .community-container {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    width: 100%;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-bar {
-    display: flex;
-    align-items: center;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    overflow: hidden;
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .search-bar input {
-    padding: 8px 12px;
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    font-size: 14px;
-  }
-  
-  .search-btn {
-    background-color: #5046e5;
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-  
+  padding: 32px;
+  background: linear-gradient(135deg, rgba(26, 30, 46, 0.95), rgba(42, 46, 69, 0.95));
+  border-radius: 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 32px auto;
+  min-height: calc(100vh - 64px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.search-bar input {
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 15px;
+  color: #ffffff;
+  outline: none;
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-btn {
+  background: linear-gradient(45deg, #3b82f6, #60a5fa);
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Community Grid */
+.community-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  flex-grow: 1;
+}
+
+/* Community Card */
+.community-card {
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.community-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.community-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.community-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.community-card:hover .community-image img {
+  transform: scale(1.05);
+}
+
+.community-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.community-price {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.community-btn {
+  background: linear-gradient(45deg, #3b82f6, #60a5fa);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+}
+
+.community-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
   .community-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
-  
-  .community-card {
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+  .community-container {
+    padding: 20px;
+    margin: 16px;
   }
-  
-  .community-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
-  
+
+  .search-bar {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .community-grid {
+    grid-template-columns: 1fr;
+  }
+
   .community-image {
     height: 180px;
-    overflow: hidden;
   }
-  
-  .community-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+}
+
+@media screen and (max-width: 480px) {
+  .community-container {
+    padding: 16px;
+    margin: 12px;
   }
-  
-  .community-card:hover .community-image img {
-    transform: scale(1.05);
+
+  .header h2 {
+    font-size: 24px;
   }
-  
+
+  .search-bar input {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .search-btn {
+    padding: 10px 14px;
+  }
+
   .community-content {
-    padding: 15px;
-    text-align: center;
+    padding: 16px;
   }
-  
+
   .community-price {
     font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
   }
-  
+
   .community-btn {
-    background-color: #5046e5;
-    color: white;
-    border: none;
     padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+    font-size: 13px;
   }
-  
-  .community-btn:hover {
-    background-color: #3f37b3;
-  }
-  
-  /* Responsive design */
-  @media screen and (max-width: 1200px) {
-    .community-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media screen and (max-width: 768px) {
-    .community-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .community-container {
-      padding: 15px;
-    }
-    
-    .search-bar {
-      max-width: 100%;
-    }
-  }
-  
-  @media screen and (max-width: 480px) {
-    .community-content {
-      padding: 10px;
-    }
-    
-    .header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    
-    .search-bar {
-      margin-top: 10px;
-      width: 100%;
-    }
-    
-    .community-image {
-      height: 150px;
-    }
-  }
+}
