@@ -96,7 +96,8 @@ function ProfileNav({ isMobile }) {
     height: '32px'
   };
 
-  const isMobileScreen = window.innerWidth <= 480;
+  // Check if screen is mobile (780px or less)
+  const isMobileScreen = window.innerWidth <= 780;
 
   return (
     <>
@@ -117,7 +118,7 @@ function ProfileNav({ isMobile }) {
             >
               {/* Left Side */}
               <div className="d-flex align-items-center">
-                {isMobile && (
+                {isMobileScreen && (
                   <div className="me-3">
                     <Menu
                       style={isMobileScreen ? { ...menuIconStyles, ...mobileIconStyles } : menuIconStyles}
@@ -250,7 +251,7 @@ function ProfileNav({ isMobile }) {
         }
         
         /* Mobile responsive adjustments */
-        @media (max-width: 480px) {
+        @media (max-width: 780px) {
           nav {
             margin: 8px 10px !important;
             padding: 10px 16px !important;

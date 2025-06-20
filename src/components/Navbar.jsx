@@ -7,11 +7,19 @@ const Navbar = () => {
   const [activeTab, setActiveTab] = useState("home");
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
+  // Determine if current route is a dashboard route
+  const isDashboardRoute = location.pathname.startsWith("/dashboard");
+
   // Update active tab based on current route
   useEffect(() => {
     const path = location.pathname;
     if (path === "/") {
       setActiveTab("home");
+    } else if (path.startsWith("/dashboard")) {
+      // Extract the last segment of dashboard sub-routes
+      const segments = path.split("/");
+      const lastSegment = segments[segments.length - 1] || "dashboard";
+      setActiveTab(lastSegment);
     } else {
       setActiveTab(path.substring(1));
     }
@@ -26,32 +34,33 @@ const Navbar = () => {
     setShowMobileMenu(!showMobileMenu);
   };
 
-  // Inline styles to prevent external CSS interference
+  // Enhanced styles with animations
   const navbarStyles = {
     position: 'fixed',
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: '#f8f9fa',
-    boxShadow: '0 -2px 10px rgba(0,0,0,0.1)',
-    borderTopLeftRadius: '15px',
-    borderTopRightRadius: '15px',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    backdropFilter: 'blur(20px)',
+    boxShadow: '0 -4px 25px rgba(0, 0, 0, 0.1)',
+    borderTop: '1px solid rgba(0, 0, 0, 0.08)',
     zIndex: 1050,
-    fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif'
+    fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    animation: 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
   };
 
   const containerStyles = {
     width: '100%',
     maxWidth: '100%',
     margin: 0,
-    padding: '0 15px'
+    padding: '0 20px'
   };
 
   const navListStyles = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    padding: '8px 0',
+    padding: '12px 0',
     margin: 0,
     listStyle: 'none',
     width: '100%'
@@ -59,247 +68,360 @@ const Navbar = () => {
 
   const navItemStyles = {
     textAlign: 'center',
-    flex: '1 1 0'
+    flex: '1 1 0',
+    position: 'relative'
   };
 
   const navLinkStyles = {
-    display: 'block',
-    padding: '8px 4px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '12px 8px',
     textDecoration: 'none',
-    color: '#6c757d',
-    borderRadius: '8px',
-    transition: 'all 0.2s ease',
+    color: '#1a1a1a',
+    borderRadius: '12px',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     border: 'none',
     background: 'none',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    position: 'relative',
+    overflow: 'hidden',
+    transform: 'translateY(0)',
   };
 
   const activeLinkStyles = {
     ...navLinkStyles,
-    color: '#0d6efd',
-    backgroundColor: '#e7f1ff'
+    color: '#000',
+    backgroundColor: 'rgba(0, 0, 0, 0.06)',
+    transform: 'translateY(-2px)',
+    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
   };
 
   const iconStyles = {
-    fontSize: '20px',
+    fontSize: '22px',
     display: 'block',
-    marginBottom: '2px'
+    marginBottom: '4px',
+    color: '#1a1a1a',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    transform: 'scale(1)',
+  };
+
+  const activeIconStyles = {
+    ...iconStyles,
+    color: '#000',
+    transform: 'scale(1.1)',
+    filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))',
   };
 
   const textStyles = {
-    fontSize: '11px',
+    fontSize: '10px',
+    fontWeight: '500',
     display: 'none',
-    '@media (min-width: 768px)': {
-      display: 'inline'
-    }
+    transition: 'all 0.3s ease',
+    opacity: 0.8,
+  };
+
+  const activeTextStyles = {
+    ...textStyles,
+    fontWeight: '600',
+    opacity: 1,
   };
 
   const buttonStyles = {
-    padding: '6px 12px',
-    fontSize: '14px',
-    fontWeight: '400',
-    lineHeight: '1.5',
+    padding: '8px 16px',
+    fontSize: '13px',
+    fontWeight: '500',
+    lineHeight: '1.4',
     textAlign: 'center',
     textDecoration: 'none',
     verticalAlign: 'middle',
     cursor: 'pointer',
     userSelect: 'none',
     border: '1px solid transparent',
-    borderRadius: '6px',
-    transition: 'all 0.15s ease-in-out',
-    margin: '0 2px'
+    borderRadius: '8px',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    margin: '0 3px',
+    position: 'relative',
+    overflow: 'hidden',
   };
 
   const primaryButtonStyles = {
     ...buttonStyles,
     color: '#fff',
-    backgroundColor: '#0d6efd',
-    borderColor: '#0d6efd'
+    backgroundColor: '#1a1a1a',
+    borderColor: '#1a1a1a',
+    boxShadow: '0 2px 8px rgba(26, 26, 26, 0.2)',
   };
 
   const outlineButtonStyles = {
     ...buttonStyles,
-    color: '#6c757d',
+    color: '#1a1a1a',
     backgroundColor: 'transparent',
-    borderColor: '#6c757d'
+    borderColor: '#1a1a1a',
   };
 
   const mobileMenuStyles = {
     position: 'absolute',
     bottom: '100%',
     left: '50%',
-    transform: 'translateX(-50%)',
-    marginBottom: '8px',
+    marginBottom: '12px',
     display: 'flex',
     flexDirection: 'column',
     gap: '8px',
-    width: '75%',
-    padding: '8px',
-    backgroundColor: '#fff',
-    border: '1px solid #dee2e6',
-    borderRadius: '8px',
-    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+    width: '200px',
+    padding: '16px',
+    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+    backdropFilter: 'blur(20px)',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
+    borderRadius: '16px',
+    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
     opacity: showMobileMenu ? 1 : 0,
     visibility: showMobileMenu ? 'visible' : 'hidden',
-    transition: 'all 0.2s ease'
+    transform: showMobileMenu ? 'translateX(-50%) translateY(0) scale(1)' : 'translateX(-50%) translateY(10px) scale(0.95)',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   };
 
   const mobileButtonStyles = {
     ...buttonStyles,
-    width: '100%'
+    width: '100%',
+    justifyContent: 'center',
   };
 
-  // Check if screen is mobile (you might want to use a proper hook for this)
-  const isMobile = window.innerWidth < 768;
+  // Navigation items with modern icons
+  const navItems = isDashboardRoute
+    ? [
+        { id: 'dashboard', label: 'Dashboard', icon: '📊', path: '/dashboard' },
+        { id: 'challenges', label: 'Challenges', icon: '🏆', path: '/dashboard/challenges' },
+        { id: 'community', label: 'Community', icon: '👥', path: '/dashboard/community' },
+        { id: 'coursecard', label: 'Courses', icon: '📚', path: '/dashboard/coursecard' },
+        { id: 'intern', label: 'Intern', icon: '💼', path: '/dashboard/intern' },
+        { id: 'resources', label: 'Resources', icon: '📂', path: '/dashboard/resources' },
+        { id: 'projects', label: 'Projects', icon: '🛠️', path: '/dashboard/projects' },
+        { id: 'certificates', label: 'Certificates', icon: '🏅', path: '/dashboard/certificates' },
+      ]
+    : [
+        { id: 'home', label: 'Home', icon: '🏠', path: '/' },
+        { id: 'courses', label: 'Courses', icon: '📚', path: '/courses' },
+        { id: 'certificate', label: 'Verify', icon: '✅', path: '/certificate' },
+        { id: 'who', label: 'Who We Are', icon: 'ℹ️', path: '/who' },
+        { id: 'reach', label: 'Reach', icon: '✉️', path: '/reach' },
+      ];
 
   return (
     <>
       <style>
         {`
-          @media (min-width: 768px) {
-            .navbar-text-show { display: inline !important; }
-            .navbar-desktop-show { display: block !important; }
-            .navbar-mobile-hide { display: none !important; }
+          @keyframes slideUp {
+            from {
+              transform: translateY(100%);
+              opacity: 0;
+            }
+            to {
+              transform: translateY(0);
+              opacity: 1;
+            }
           }
+
+          @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+              transform: translate3d(0, 0, 0) scale(1);
+            }
+            40%, 43% {
+              transform: translate3d(0, -8px, 0) scale(1.05);
+            }
+            70% {
+              transform: translate3d(0, -4px, 0) scale(1.02);
+            }
+            90% {
+              transform: translate3d(0, -2px, 0) scale(1.01);
+            }
+          }
+
+          @keyframes pulse {
+            0% {
+              box-shadow: 0 0 0 0 rgba(26, 26, 26, 0.4);
+            }
+            70% {
+              box-shadow: 0 0 0 10px rgba(26, 26, 26, 0);
+            }
+            100% {
+              box-shadow: 0 0 0 0 rgba(26, 26, 26, 0);
+            }
+          }
+
+          .nav-link:hover {
+            transform: translateY(-3px) !important;
+            background-color: rgba(0, 0, 0, 0.04) !important;
+          }
+
+          .nav-link:hover .nav-icon {
+            transform: scale(1.15) !important;
+            animation: bounce 0.6s ease !important;
+          }
+
+          .nav-link:active {
+            transform: translateY(-1px) !important;
+          }
+
+          .nav-link.active::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background-color: #1a1a1a;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+          }
+
+          .btn-primary:hover {
+            transform: translateY(-2px) !important;
+            boxShadow: 0 6px 20px rgba(26, 26, 26, 0.3) !important;
+            background-color: #000 !important;
+          }
+
+          .btn-outline:hover {
+            background-color: #1a1a1a !important;
+            color: #fff !important;
+            transform: translateY(-2px) !important;
+            boxShadow: 0 4px 15px rgba(26, 26, 26, 0.2) !important;
+          }
+
+          .mobile-menu-btn:hover {
+            transform: rotate(90deg) !important;
+          }
+
+          @media (min-width: 768px) {
+            .navbar-text-show { 
+              display: inline !important; 
+            }
+            .navbar-desktop-show { 
+              display: flex !important; 
+            }
+            .navbar-mobile-hide { 
+              display: none !important; 
+            }
+          }
+          
           @media (max-width: 767px) {
-            .navbar-text-show { display: none !important; }
-            .navbar-desktop-show { display: none !important; }
-            .navbar-mobile-hide { display: block !important; }
+            .navbar-text-show { 
+              display: none !important; 
+            }
+            .navbar-desktop-show { 
+              display: none !important; 
+            }
+            .navbar-mobile-hide { 
+              display: block !important; 
+            }
           }
         `}
       </style>
       <nav style={navbarStyles}>
         <div style={containerStyles}>
           <ul style={navListStyles}>
-            {/* Home Tab */}
-            <li style={navItemStyles}>
-              <Link
-                to="/"
-                style={activeTab === "home" ? activeLinkStyles : navLinkStyles}
-                onClick={() => handleTabClick("home")}
-              >
-                <i style={iconStyles}>🏠</i>
-                <span className="navbar-text-show" style={textStyles}>Home</span>
-              </Link>
-            </li>
-
-            {/* Courses Tab */}
-            <li style={navItemStyles}>
-              <Link
-                to="/courses"
-                style={activeTab === "courses" ? activeLinkStyles : navLinkStyles}
-                onClick={() => handleTabClick("courses")}
-              >
-                <i style={iconStyles}>📚</i>
-                <span className="navbar-text-show" style={textStyles}>Courses</span>
-              </Link>
-            </li>
-
-            {/* Certificate Tab */}
-            <li style={navItemStyles}>
-              <Link
-                to="/certificate"
-                style={activeTab === "certificate" ? activeLinkStyles : navLinkStyles}
-                onClick={() => handleTabClick("certificate")}
-              >
-                <i style={iconStyles}>✅</i>
-                <span className="navbar-text-show" style={textStyles}>Verify</span>
-              </Link>
-            </li>
-
-            {/* Who We Are Tab */}
-            <li style={navItemStyles}>
-              <Link
-                to="/who"
-                style={activeTab === "who" ? activeLinkStyles : navLinkStyles}
-                onClick={() => handleTabClick("who")}
-              >
-                <i style={iconStyles}>ℹ️</i>
-                <span className="navbar-text-show" style={textStyles}>Who We Are</span>
-              </Link>
-            </li>
-
-            {/* Reach Tab */}
-            <li style={navItemStyles}>
-              <Link
-                to="/reach"
-                style={activeTab === "reach" ? activeLinkStyles : navLinkStyles}
-                onClick={() => handleTabClick("reach")}
-              >
-                <i style={iconStyles}>✉️</i>
-                <span className="navbar-text-show" style={textStyles}>Reach</span>
-              </Link>
-            </li>
-
-            {/* Login / Join Now - Desktop View */}
-            <li style={navItemStyles} className="navbar-desktop-show">
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '4px', paddingTop: '4px' }}>
-                <button
-                  style={outlineButtonStyles}
-                  onClick={() => navigate("/login")}
-                  onMouseOver={(e) => {
-                    e.target.style.backgroundColor = '#6c757d';
-                    e.target.style.color = '#fff';
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.backgroundColor = 'transparent';
-                    e.target.style.color = '#6c757d';
-                  }}
+            {/* Dynamic Navigation Items */}
+            {navItems.map((item) => (
+              <li key={item.id} style={navItemStyles}>
+                <Link
+                  to={item.path}
+                  className={`nav-link ${activeTab === item.id ? 'active' : ''}`}
+                  style={activeTab === item.id ? activeLinkStyles : navLinkStyles}
+                  onClick={() => handleTabClick(item.id)}
                 >
-                  Login
-                </button>
-                <button
-                  style={primaryButtonStyles}
-                  onClick={() => navigate("/register")}
-                  onMouseOver={(e) => {
-                    e.target.style.backgroundColor = '#0b5ed7';
-                    e.target.style.borderColor = '#0a58ca';
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.backgroundColor = '#0d6efd';
-                    e.target.style.borderColor = '#0d6efd';
-                  }}
-                >
-                  Join Now
-                </button>
-              </div>
-            </li>
+                  <span 
+                    className="nav-icon"
+                    style={activeTab === item.id ? activeIconStyles : iconStyles}
+                  >
+                    {item.icon}
+                  </span>
+                  <span 
+                    className="navbar-text-show" 
+                    style={activeTab === item.id ? activeTextStyles : textStyles}
+                  >
+                    {item.label}
+                  </span>
+                </Link>
+              </li>
+            ))}
 
-            {/* Mobile Menu Toggle Button */}
-            <li style={navItemStyles} className="navbar-mobile-hide">
-              <button
-                style={{...navLinkStyles, padding: 0}}
-                onClick={toggleMobileMenu}
-                aria-expanded={showMobileMenu}
-              >
-                <i style={{fontSize: '24px'}}>⋮</i>
-              </button>
+            {/* Login / Join Now - Desktop View (Hidden on Dashboard Routes) */}
+            {!isDashboardRoute && (
+              <li style={navItemStyles} className="navbar-desktop-show">
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', paddingTop: '4px' }}>
+                  <button
+                    className="btn-outline"
+                    style={outlineButtonStyles}
+                    onClick={() => navigate("/login")}
+                  >
+                    Login
+                  </button>
+                  <button
+                    className="btn-primary"
+                    style={primaryButtonStyles}
+                    onClick={() => navigate("/register")}
+                  >
+                    Join Now
+                  </button>
+                </div>
+              </li>
+            )}
 
-              {/* Dropdown-style Mobile Menu */}
-              <div style={mobileMenuStyles}>
+            {/* Mobile Menu Toggle Button (Hidden on Dashboard Routes) */}
+            {!isDashboardRoute && (
+              <li style={navItemStyles} className="navbar-mobile-hide">
                 <button
-                  style={{...mobileButtonStyles, ...outlineButtonStyles}}
-                  onClick={() => {
-                    navigate("/login");
-                    setShowMobileMenu(false);
+                  className="mobile-menu-btn"
+                  style={{
+                    ...navLinkStyles, 
+                    padding: '12px',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                   }}
+                  onClick={toggleMobileMenu}
+                  aria-expanded={showMobileMenu}
                 >
-                  Login
+                  <span style={{
+                    fontSize: '20px',
+                    color: '#1a1a1a',
+                    fontWeight: 'bold',
+                    transition: 'all 0.3s ease'
+                  }}>
+                    {showMobileMenu ? '✕' : '⋮'}
+                  </span>
                 </button>
-                <button
-                  style={{...mobileButtonStyles, ...primaryButtonStyles}}
-                  onClick={() => {
-                    navigate("/register");
-                    setShowMobileMenu(false);
-                  }}
-                >
-                  Join Now
-                </button>
-              </div>
-            </li>
+
+                {/* Enhanced Mobile Menu */}
+                <div style={mobileMenuStyles}>
+                  <button
+                    className="btn-outline"
+                    style={{...mobileButtonStyles, ...outlineButtonStyles}}
+                    onClick={() => {
+                      navigate("/login");
+                      setShowMobileMenu(false);
+                    }}
+                  >
+                    🔐 Login
+                  </button>
+                  <button
+                    className="btn-primary"
+                    style={{...mobileButtonStyles, ...primaryButtonStyles}}
+                    onClick={() => {
+                      navigate("/register");
+                      setShowMobileMenu(false);
+                    }}
+                  >
+                    🚀 Join Now
+                  </button>
+                </div>
+              </li>
+            )}
           </ul>
         </div>
       </nav>
+      
+      {/* Body padding to prevent content overlap */}
+      <div style={{ paddingBottom: '80px' }}></div>
     </>
   );
 };

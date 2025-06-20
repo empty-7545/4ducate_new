@@ -11,7 +11,7 @@ import Maincourse from "./components/Maincourse";
 import Whoweare from "./pages/Whoweare";
 import ProfileNav from './pages/ProfileNav';
 import ProfileHome from './pages/ProfileHome';
-import BottomNavbar from './pages/BottomNavbar'; // Make sure this points to your updated BottomNavbar
+import BottomNavbar from './pages/BottomNavbar';
 import Intern from "./components/Intern ";
 import Challenges from "./components/ChallengeCard";
 import CommunityGrid from "./components/CommunityCard";
@@ -20,35 +20,11 @@ import './App.css';
 
 const NavbarWrapper = () => {
   const location = useLocation();
- 
-  const showNavbar = !location.pathname.startsWith("/dashboard");
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 780);
   
-  return showNavbar ? <Navbar /> : null;
-};
-
-
-const FooterWrapper = () => {
-  const location = useLocation();
-  
-  return <Footer />;
-};
-
-
-const BottomNavbarWrapper = () => {
-  const location = useLocation();
-  
-  const showBottomNav = location.pathname.startsWith("/dashboard");
-  
-  return showBottomNav ? <BottomNavbar /> : null;
-};
-
-const App = () => {
-
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 3000);
-
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 3000);
+      setIsMobile(window.innerWidth <= 780);
     };
 
     window.addEventListener('resize', handleResize);
@@ -57,8 +33,67 @@ const App = () => {
     };
   }, []);
 
-  // Educational Platform Dashboard Component
-  // Modified to remove Sidebar and always show BottomNavbar in the overall layout
+  const showNavbar = !location.pathname.startsWith("/dashboard") || !isMobile;
+  
+  return showNavbar ? <Navbar /> : null;
+};
+
+const FooterWrapper = () => {
+  const location = useLocation();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 780);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 780);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Show footer on all pages except dashboard on mobile
+  const showFooter = !(location.pathname.startsWith("/dashboard") && isMobile);
+  
+  return showFooter ? <Footer /> : null;
+};
+
+const BottomNavbarWrapper = () => {
+  const location = useLocation();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 780);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 780);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Show bottom navbar only on dashboard routes and only on mobile
+  const showBottomNav = location.pathname.startsWith("/dashboard") && isMobile;
+  
+  return showBottomNav ? <BottomNavbar /> : null;
+};
+
+const App = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 780);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 780);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const Dashboard = () => (
     <div className="app-container">
       <div className="main-content">
@@ -84,7 +119,6 @@ const App = () => {
         <Route path="/dashboard/community" element={<CommunityGrid />} />
         <Route path="/dashboard/coursecard" element={<CourseCard />} />
         <Route path="/dashboard/intern" element={<Intern />} />
-        {/* Add additional dashboard routes here */}
         <Route path="/dashboard/resources" element={<div>Resources Page</div>} />
         <Route path="/dashboard/projects" element={<div>Projects Page</div>} />
         <Route path="/dashboard/certificates" element={<div>Certificates Page</div>} />
