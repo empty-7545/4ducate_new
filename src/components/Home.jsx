@@ -29,7 +29,7 @@ import {
   Building,
   Lightbulb,
   Rocket,
-  User // Add this line to import the User icon
+  User
 } from 'lucide-react';
 
 export default function CorporateHomePage() {
@@ -174,13 +174,13 @@ export default function CorporateHomePage() {
                 </p>
                 
                 <div className="d-flex flex-wrap gap-3 mb-4">
-                  <button className="btn btn-warning btn-lg px-4 py-3 rounded-pill d-flex align-items-center">
-                    <BookOpen className="me-2" size={20} />
+                  <button className="btn btn-warning btn-sm btn-md-lg px-3 px-lg-4 py-2 d-flex align-items-center">
+                    <BookOpen className="me-2" size={15} />
                     Explore Courses
                     <ArrowRight className="ms-2" size={16} />
                   </button>
-                  <button className="btn btn-outline-light btn-lg px-4 py-3 rounded-pill d-flex align-items-center">
-                    <PlayCircle className="me-2" size={20} />
+                  <button className="btn btn-outline-light btn-sm btn-md-lg px-3 px-lg-4 py-2 d-flex align-items-center">
+                    <PlayCircle className="me-2" size={15} />
                     Watch Demo
                   </button>
                 </div>
@@ -412,12 +412,12 @@ export default function CorporateHomePage() {
                   </div>
                   
                   <div className="d-flex gap-3">
-                    <button className="btn btn-primary btn-lg px-4">
-                      <Play className="me-2" size={20} />
+                    <button className="btn btn-primary btn-sm btn-md-lg px-3 px-lg-4 py-2">
+                      <Play className="me-2" size={15} />
                       Join Live Class
                     </button>
-                    <button className="btn btn-outline-primary btn-lg px-4">
-                      <BookOpen className="me-2" size={20} />
+                    <button className="btn btn-outline-primary btn-sm btn-md-lg px-3 px-lg-4 py-2">
+                      <BookOpen className="me-2" size={15} />
                       Learn More
                     </button>
                   </div>
@@ -489,9 +489,9 @@ export default function CorporateHomePage() {
                     </div>
                   </div>
                   
-                  <button className="btn btn-primary btn-lg">
+                  <button className="btn btn-primary btn-sm btn-md-lg px-3 px-lg-4 py-2">
                     Explore Programs
-                    <ArrowRight className="ms-2" size={20} />
+                    <ArrowRight className="ms-2" size={15} />
                   </button>
                 </div>
               </div>
@@ -631,12 +631,12 @@ export default function CorporateHomePage() {
                 </div>
                 
                 <div className="d-flex gap-3">
-                  <button className="btn btn-warning btn-lg px-4">
-                    <Shield className="me-2" size={20} />
+                  <button className="btn btn-warning btn-sm btn-md-lg px-3 px-lg-4 py-2">
+                    <Shield className="me-2" size={15} />
                     Start Learning
                   </button>
-                  <button className="btn btn-outline-light btn-lg px-4">
-                    <BookOpen className="me-2" size={20} />
+                  <button className="btn btn-outline-light btn-sm btn-md-lg px-3 px-lg-4 py-2">
+                    <BookOpen className="me-2" size={15} />
                     Course Details
                   </button>
                 </div>
@@ -724,8 +724,8 @@ export default function CorporateHomePage() {
                     <div className="mb-3">
                       <small className="text-primary fw-bold">{project.tech}</small>
                     </div>
-                    <button className="btn btn-outline-primary btn-sm">
-                      <Globe className="me-1" size={16} />
+                    <button className="btn btn-outline-primary btn-sm px-3 py-2">
+                      <Globe className="me-1" size={15} />
                       View Project
                     </button>
                   </div>
@@ -794,8 +794,8 @@ export default function CorporateHomePage() {
                       <span className="fw-bold text-warning">{tutor.rating}</span>
                     </div>
                     
-                    <button className="btn btn-outline-primary btn-sm">
-                      <MessageCircle className="me-1" size={16} />
+                    <button className="btn btn-outline-primary btn-sm px-3 py-2">
+                      <MessageCircle className="me-1" size={15} />
                       View Profile
                     </button>
                   </div>
@@ -925,12 +925,12 @@ export default function CorporateHomePage() {
             <h2 className="display-6 fw-bold text-dark mb-3">Ready to Transform Your Career?</h2>
             <p className="lead text-dark mb-4">Join thousands of successful professionals who started with 4Ducate</p>
             <div className="d-flex justify-content-center gap-3">
-              <button className="btn btn-dark btn-lg px-5">
-                <Rocket className="me-2" size={20} />
+              <button className="btn btn-dark btn-sm btn-md-lg px-3 px-lg-5 py-2">
+                <Rocket className="me-2" size={15} />
                 Start Your Journey
               </button>
-              <button className="btn btn-outline-dark btn-lg px-5">
-                <Calendar className="me-2" size={20} />
+              <button className="btn btn-outline-dark btn-sm btn-md-lg px-3 px-lg-5 py-2">
+                <Calendar className="me-2" size={15} />
                 Book Free Demo
               </button>
             </div>
@@ -1032,6 +1032,18 @@ export default function CorporateHomePage() {
           to {
             opacity: 1;
             transform: translate3d(0, 0, 0);
+          }
+        }
+
+        /* Responsive Button Styles */
+        .btn-md-lg {
+          font-size: 0.875rem !important; /* Smaller size for mobile */
+          padding: 0.25rem 0.75rem !important;
+        }
+        @media (min-width: 992px) {
+          .btn-md-lg {
+            font-size: 1rem !important; /* Medium size for larger screens */
+            padding: 0.5rem 1rem !important;
           }
         }
       `}</style>

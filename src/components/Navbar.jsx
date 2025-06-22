@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Navbar = () => {
   const location = useLocation();
@@ -98,7 +99,7 @@ const Navbar = () => {
   };
 
   const iconStyles = {
-    fontSize: '22px',
+    fontSize: '20px',
     display: 'block',
     marginBottom: '4px',
     color: '#1a1a1a',
@@ -187,24 +188,24 @@ const Navbar = () => {
     justifyContent: 'center',
   };
 
-  // Navigation items with modern icons
+  // Navigation items with Bootstrap Icons
   const navItems = isDashboardRoute
     ? [
-        { id: 'dashboard', label: 'Dashboard', icon: '📊', path: '/dashboard' },
-        { id: 'challenges', label: 'Challenges', icon: '🏆', path: '/dashboard/challenges' },
-        { id: 'community', label: 'Community', icon: '👥', path: '/dashboard/community' },
-        { id: 'coursecard', label: 'Courses', icon: '📚', path: '/dashboard/coursecard' },
-        { id: 'intern', label: 'Intern', icon: '💼', path: '/dashboard/intern' },
-        { id: 'resources', label: 'Resources', icon: '📂', path: '/dashboard/resources' },
-        { id: 'projects', label: 'Projects', icon: '🛠️', path: '/dashboard/projects' },
-        { id: 'certificates', label: 'Certificates', icon: '🏅', path: '/dashboard/certificates' },
+        { id: 'dashboard', label: 'Dashboard', icon: 'bi-speedometer2', path: '/dashboard' },
+        { id: 'challenges', label: 'Challenges', icon: 'bi-trophy-fill', path: '/dashboard/challenges' },
+        { id: 'community', label: 'Community', icon: 'bi-people-fill', path: '/dashboard/community' },
+        { id: 'coursecard', label: 'Courses', icon: 'bi-book-fill', path: '/dashboard/coursecard' },
+        { id: 'intern', label: 'Intern', icon: 'bi-briefcase-fill', path: '/dashboard/intern' },
+        { id: 'resources', label: 'Resources', icon: 'bi-folder-fill', path: '/dashboard/resources' },
+        { id: 'projects', label: 'Projects', icon: 'bi-tools', path: '/dashboard/projects' },
+        { id: 'certificates', label: 'Certificates', icon: 'bi-award-fill', path: '/dashboard/certificates' },
       ]
     : [
-        { id: 'home', label: 'Home', icon: '🏠', path: '/' },
-        { id: 'courses', label: 'Courses', icon: '📚', path: '/courses' },
-        { id: 'certificate', label: 'Verify', icon: '✅', path: '/certificate' },
-        { id: 'who', label: 'Who We Are', icon: 'ℹ️', path: '/who' },
-        { id: 'reach', label: 'Reach', icon: '✉️', path: '/reach' },
+        { id: 'home', label: 'Home', icon: 'bi-house-fill', path: '/' },
+        { id: 'courses', label: 'Courses', icon: 'bi-book-fill', path: '/courses' },
+        { id: 'certificate', label: 'Verify', icon: 'bi-patch-check-fill', path: '/certificate' },
+        { id: 'who', label: 'Who We Are', icon: 'bi-info-circle-fill', path: '/who' },
+        { id: 'reach', label: 'Reach', icon: 'bi-envelope-fill', path: '/reach' },
       ];
 
   return (
@@ -330,12 +331,10 @@ const Navbar = () => {
                   style={activeTab === item.id ? activeLinkStyles : navLinkStyles}
                   onClick={() => handleTabClick(item.id)}
                 >
-                  <span 
-                    className="nav-icon"
+                  <i 
+                    className={`bi ${item.icon} nav-icon`}
                     style={activeTab === item.id ? activeIconStyles : iconStyles}
-                  >
-                    {item.icon}
-                  </span>
+                  />
                   <span 
                     className="navbar-text-show" 
                     style={activeTab === item.id ? activeTextStyles : textStyles}
@@ -381,14 +380,12 @@ const Navbar = () => {
                   onClick={toggleMobileMenu}
                   aria-expanded={showMobileMenu}
                 >
-                  <span style={{
-                    fontSize: '20px',
+                  <i className={`bi ${showMobileMenu ? 'bi-x-lg' : 'bi-three-dots'}`} style={{
+                    fontSize: '18px',
                     color: '#1a1a1a',
                     fontWeight: 'bold',
                     transition: 'all 0.3s ease'
-                  }}>
-                    {showMobileMenu ? '✕' : '⋮'}
-                  </span>
+                  }} />
                 </button>
 
                 {/* Enhanced Mobile Menu */}
@@ -401,7 +398,8 @@ const Navbar = () => {
                       setShowMobileMenu(false);
                     }}
                   >
-                    🔐 Login
+                    <i className="bi bi-lock-fill" style={{ marginRight: '8px' }} />
+                    Login
                   </button>
                   <button
                     className="btn-primary"
@@ -411,7 +409,8 @@ const Navbar = () => {
                       setShowMobileMenu(false);
                     }}
                   >
-                    🚀 Join Now
+                    <i className="bi bi-rocket-takeoff-fill" style={{ marginRight: '8px' }} />
+                    Join Now
                   </button>
                 </div>
               </li>
@@ -421,7 +420,7 @@ const Navbar = () => {
       </nav>
       
       {/* Body padding to prevent content overlap */}
-      <div style={{ paddingBottom: '80px' }}></div>
+      {/* <div style={{ paddingBottom: '80px' }}></div> */}
     </>
   );
 };

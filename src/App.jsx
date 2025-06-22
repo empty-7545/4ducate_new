@@ -17,6 +17,8 @@ import Challenges from "./components/ChallengeCard";
 import CommunityGrid from "./components/CommunityCard";
 import CourseCard from "./components/CourseCard";
 import './App.css';
+import Profile from "./components/Profile";
+import ChallengesProcess from "./components/ChallengesProcess";
 
 const NavbarWrapper = () => {
   const location = useLocation();
@@ -119,6 +121,8 @@ const App = () => {
         <Route path="/dashboard/community" element={<CommunityGrid />} />
         <Route path="/dashboard/coursecard" element={<CourseCard />} />
         <Route path="/dashboard/intern" element={<Intern />} />
+        <Route path="/dashboard/profile" element={<Profile />} />
+        <Route path="/dashboard/challengesprocess" element={<ChallengesProcess />} />
         <Route path="/dashboard/resources" element={<div>Resources Page</div>} />
         <Route path="/dashboard/projects" element={<div>Projects Page</div>} />
         <Route path="/dashboard/certificates" element={<div>Certificates Page</div>} />
