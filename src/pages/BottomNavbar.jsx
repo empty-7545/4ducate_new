@@ -34,8 +34,8 @@ function BottomNavbar() {
     },
     { 
       path: '/dashboard/intern', 
-      icon: 'bi-person-circle', 
-      label: 'Profile',
+      icon: 'bi-briefcase-fill', 
+      label: 'Opprotunities',
       isActive: location.pathname === '/dashboard/intern'
     }
   ];

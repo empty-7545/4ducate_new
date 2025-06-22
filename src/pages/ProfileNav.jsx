@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Menu, Bell, User } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 
 function ProfileNav({ isMobile }) {
   const [menuHover, setMenuHover] = useState(false);
   const [bellHover, setBellHover] = useState(false);
   const [profileHover, setProfileHover] = useState(false);
+  const navigate = useNavigate();
 
   const navStyles = {
     background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
@@ -124,7 +126,7 @@ function ProfileNav({ isMobile }) {
                       style={isMobileScreen ? { ...menuIconStyles, ...mobileIconStyles } : menuIconStyles}
                       onMouseEnter={() => setMenuHover(true)}
                       onMouseLeave={() => setMenuHover(false)}
-                      onClick={() => console.log('Menu clicked')}
+                      onClick={() => navigate('/dashboard/profile')}
                     />
                   </div>
                 )}
@@ -141,7 +143,7 @@ function ProfileNav({ isMobile }) {
                     style={isMobileScreen ? { ...bellIconStyles, ...mobileIconStyles } : bellIconStyles}
                     onMouseEnter={() => setBellHover(true)}
                     onMouseLeave={() => setBellHover(false)}
-                    onClick={() => console.log('Notification clicked')}
+                    onClick={() => navigate('/dashboard/profile')}
                   />
                   {/* Notification Badge */}
                   <span 
@@ -164,7 +166,7 @@ function ProfileNav({ isMobile }) {
                   style={isMobileScreen ? mobileProfileIconStyles : profileIconStyles}
                   onMouseEnter={() => setProfileHover(true)}
                   onMouseLeave={() => setProfileHover(false)}
-                  onClick={() => console.log('Profile clicked')}
+                  onClick={() => navigate('/dashboard/profile')}
                 >
                   <User size={isMobileScreen ? 16 : 18} />
                 </div>
